@@ -1,0 +1,7 @@
+Person,Team,Day1,Day2,Day3,Day4,Day5,Day6,Day7
+1,A,Not Sched,Loc A,Loc B,Loc A,Tel,Tel,Not Sched
+2,A,Not Sched,Loc A,Tel,Tel,Tel,Loc A,Not Sched
+3,A,Not Sched,Tel,Tel,Tel,Other,Other,Not Sched
+4,B,Tel,Tel,Tel,Not Sched,Not Sched,Not Sched,Tel
+5,B,Not Sched,Other,Other,Other,Other,Other,Other
+6,B,Not Sched,Tel,Loc C,Loc C,Vaca,Vaca,Not Sched
