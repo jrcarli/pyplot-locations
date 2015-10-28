@@ -2,6 +2,9 @@ import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
 
+# Temporary to save as pdf
+from matplotlib.backends.backend_pdf import PdfPages
+
 def getColors():
     """ Snagged from colorbrewer2.org
     7 data classes
@@ -43,89 +46,97 @@ def loc2val(x):
     else:
         return 6
 
-label_size = 10
+def genplot(df2,day,pdf=None):
+    # Figure out how many dots may appear in one x bin
+    max_people_per_bin = pd.groupby(df2,['Team','Location']).count()['Site'].max()
 
-df = pd.read_csv('locations.csv')
-df2 = pd.melt(df, id_vars=['Person','Team'], value_vars=['Day1','Day2','Day3','Day4','Day5','Day6','Day7'],var_name='Day',value_name='Location')
+    # Figure out how many teams
+    num_teams = len(df2['Team'].unique())
+    num_locations = len(df2['Location'].unique())
 
-df2['Site'] = df2['Location'].apply(loc2val)
-df2['TeamMap'] = df2['Team'].apply(team2val)
+    # Complete for all days. Consider loop based on 'Day'.unique()
+    daydf = df2[df2['Day']==day]
 
-# Figure out how many dots may appear in one x bin
-max_people_per_bin = pd.groupby(df2,['Team','Location']).count()['Site'].max()
+    colors = getColors()
 
-# Figure out how many teams
-num_teams = len(df2['Team'].unique())
-num_locations = len(df2['Location'].unique())
+    X = daydf['Site'].values + 0.5
+    Y = daydf['TeamMap'].values + 0.5
+    day_team_values = daydf['Team'].values
+    day_site_values = daydf['Site'].values
+    s = []
+    for i in range(0,len(X)):
+        size = len(daydf[(daydf['Team']==day_team_values[i]) & (daydf['Site']==day_site_values[i])])
+        s.append(size)
+    #s = [20*4**n for n in range(len(x))]
+    #t = [20*4**x for x in s]
+    t = [100*x for x in s]
+    plt.scatter(X,Y,s=t,alpha=0.5)
 
-teams = df2['Team'].unique()
+    # Fill in the background
+    # TODO: colors is conveniently sized to match data, should expand
+    for i in range(0,num_locations):
+        xgap = [i,i+1]
+        plt.fill_between(x=xgap, y1=num_teams, y2=0, color=colors[i], alpha=0.2) 
 
-# Complete for all days. Consider loop based on 'Day'.unique()
-day1 = df2[df2['Day']=='Day1']
-day3 = df2[df2['Day']=='Day3']
+    # Consider setting the color or alpha here
+    for i in range(0,num_teams-1): # don't bother with top line
+        plt.axhline(y=i+1,alpha=0.2)
 
-colors = getColors()
+    # Make sure to use the full df not day-specific
+    #loc_labels = df2['Location'].unique()
+    loc_labels=['Off',
+                'Tel',
+                'Loc A',
+                'Loc B',
+                'Loc C',
+                'Vacation',
+                'Other',
+               ]
+    plt.xticks(np.arange(len(loc_labels))+0.5,loc_labels)#,rotation=45)
 
-"""
-# Generate some simple plotting data
-# For loop to cover each location
-for i in range(0,num_locations):
-    # For loop to cover each team
-    for j in range(0,num_teams):
-        # x is i + 0.5
-        # y is j + 0.5
-        plt.scatter(x=(i+0.5),y=(j+0.5),alpha=0.2)
-"""
+    team_labels=df2['Team'].unique()
+    plt.yticks(np.arange(len(team_labels))+0.5,team_labels)
 
-X = day3['Site'].values + 0.5
-Y = day3['TeamMap'].values + 0.5
-day3_team_values = day3['Team'].values
-day3_site_values = day3['Site'].values
-s = []
-for i in range(0,len(X)):
-    size = len(day3[(day3['Team']==day3_team_values[i]) & (day3['Site']==day3_site_values[i])])
-    s.append(size)
-#s = [20*4**n for n in range(len(x))]
-t = [20*4**x for x in s]
-plt.scatter(X,Y,s=t,alpha=0.5)
+    ax = plt.gca()
+    ax.set_autoscale_on(False)
+    ax.invert_yaxis()
+    ax.xaxis.tick_top()
 
-# Fill in the background
-# TODO: colors is conveniently sized to match data, should expand
-for i in range(0,num_locations):
-    xgap = [i,i+1]
-    plt.fill_between(x=xgap, y1=num_teams, y2=0, color=colors[i], alpha=0.2) 
+    plt.tick_params(labelsize=10)
+    plt.tick_params(axis='x',top='off')
+    plt.tick_params(axis='y',left='off')
+    plt.tick_params(axis='y',right='off')
 
-# Consider setting the color or alpha here
-for i in range(0,num_teams-1): # don't bother with top line
-    plt.axhline(y=i+1,alpha=0.2)
+    #plt.title('Locations for %s'%(day))
+    #plt.xlabel('Location')
+    plt.xlabel('Locations for %s'%(day))
+    plt.ylabel('Team')
 
-# Make sure to use the full df not day-specific
-#loc_labels = df2['Location'].unique()
-loc_labels=['Off',
-            'Tel',
-            'Loc A',
-            'Loc B',
-            'Loc C',
-            'Vacation',
-            'Other',
-           ]
-plt.xticks(np.arange(len(loc_labels))+0.5,loc_labels)#,rotation=45)
+    plt.xlim(0,num_locations)
+    plt.ylim(0,num_teams)
 
-team_labels=df2['Team'].unique()
-plt.yticks(np.arange(len(team_labels))+0.5,team_labels)
+    if pdf:
+        pdf.savefig()
+        plt.close()
+    else:
+        plt.show()
 
-ax = plt.gca()
-ax.set_autoscale_on(False)
-ax.invert_yaxis()
-ax.xaxis.tick_top()
 
-plt.tick_params(labelsize=10)
-plt.tick_params(axis='x',top='off')
-plt.tick_params(axis='y',left='off')
-plt.tick_params(axis='y',right='off')
+def main():
+    df = pd.read_csv('locations.csv')
+    df2 = pd.melt(df, id_vars=['Person','Team'], value_vars=['Day1','Day2','Day3','Day4','Day5','Day6','Day7'],var_name='Day',value_name='Location')
 
-plt.xlim(0,num_locations)
-plt.ylim(0,num_teams)
+    df2['Site'] = df2['Location'].apply(loc2val)
+    df2['TeamMap'] = df2['Team'].apply(team2val)
+    days = df2['Day'].unique()
 
-plt.show()
+    # Temporary for PDF
+    with PdfPages('locations.pdf') as pdf:
+        for day in days:
+            genplot(df2,day,pdf)
+            #keep_going = raw_input('Next plot? [y|n] ')
+            #if keep_going != 'y':
+            #    break
 
+if __name__=='__main__':
+    main()
