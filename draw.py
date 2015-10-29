@@ -2,12 +2,13 @@ import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.animation import FuncAnimation 
+import matplotlib.animation as animation
 
 # Temporary to save as pdf
 from matplotlib.backends.backend_pdf import PdfPages
 
-import matplotlib
-matplotlib.use('TkAgg')
+#import matplotlib
+#matplotlib.use('TkAgg')
 
 # Globals
 #max_people_per_bin = 0
@@ -16,6 +17,7 @@ matplotlib.use('TkAgg')
 days = []
 ax = None
 df2 = None 
+scat = None
 colors = ['#d53e4f',
           '#fc8d59',
           '#fee08b',
@@ -53,6 +55,7 @@ def loc2val(x):
 def initplot():
     global df2
     global ax
+    global scat
     # Figure out how many dots may appear in one x bin
     max_people_per_bin = pd.groupby(df2,['Team','Location']).count()['Site'].max()
 
@@ -101,14 +104,16 @@ def initplot():
     ax.invert_yaxis()
     ax.xaxis.tick_top()
 
-    return []
+    scat = plt.scatter([],[])
+    return scat,
 
 #def genplot(df2,day,pdf=None):
 def genplot(frame_number):
     global df2
     global days
     global ax
-    """
+    """ 
+    plt.cla() 
     # Figure out how many dots may appear in one x bin
     max_people_per_bin = pd.groupby(df2,['Team','Location']).count()['Site'].max()
 
@@ -151,7 +156,6 @@ def genplot(frame_number):
     sh = plt.xlim(0,num_locations)
     si = plt.ylim(0,num_teams)
     """ 
- 
     day = days[frame_number % len(days)]
     # Complete for all days. Consider loop based on 'Day'.unique()
     daydf = df2[df2['Day']==day]
@@ -166,12 +170,14 @@ def genplot(frame_number):
     #s = [20*4**n for n in range(len(x))]
     #t = [20*4**x for x in s]
     t = [100*x for x in s]
-    #ra = plt.scatter(X,Y,s=t,alpha=0.5)
-    ra = ax.scatter(X,Y,s=t,alpha=0.5)
-    return ra, 
-    #plt.title('Locations for %s'%(day))
+    plt.xlabel('Locations for %s'%(day))
+    ra = plt.scatter(X,Y,s=t,alpha=0.5)
+    #ra = ax.scatter(X,Y,s=t,alpha=0.5)
     #plt.xlabel('Location')
     #rb = plt.xlabel('Locations for %s'%(day))
+    #rb = ax.xlabel('Locations for %s'%(day))
+    #return ra,rb
+    return ra,
 
     """
     if pdf:
@@ -180,7 +186,6 @@ def genplot(frame_number):
     else:
         plt.show()
     """
-    #return [ra,rb]
 
 def main():
     global df2
@@ -192,14 +197,20 @@ def main():
     df2['TeamMap'] = df2['Team'].apply(team2val)
     days = df2['Day'].unique()
 
+    Writer = animation.writers['ffmpeg']
+    writer = Writer(fps=15,metadata=dict(artist='Me'),bitrate=1800)
+
     fig = plt.figure()#figsize=(7,7))
     #ax = fig.add_axes([0, 0, 1, 1], frameon=False)
     #ax.set_xlim(0,1), ax.set_xticks([])
     #ax.set_ylim(0,1), ax.set_yticks([])
 
-    animation = FuncAnimation(fig, genplot, init_func=initplot, interval=2000,blit=True)
+    ani = FuncAnimation(fig, genplot, init_func=initplot, interval=1000,blit=True,frames=7)
+    #ani = FuncAnimation(fig, genplot, interval=1000,blit=True,frames=7)
 
-    plt.show()
+    #plt.show()
+    ani.save('locations.gif',writer='imagemagick',fps=1)
+    #ani.save('locations.mp4',writer=writer)
 
     """
     initplot(df2)
