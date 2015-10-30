@@ -1,0 +1,35 @@
+Name,Team,20-Sep,21-Sep,22-Sep,23-Sep,24-Sep,25-Sep,26-Sep,27-Sep,28-Sep,29-Sep,30-Sep,1-Oct,2-Oct,3-Oct,4-Oct,5-Oct,6-Oct,7-Oct,8-Oct,9-Oct,10-Oct
+A,Team A,Off,Tele,Tele,Loc E,Loc E,Tele,Off,Training,Training,Training,Training,Training,Training,Off,Off,Training,Training,Training,Training,Tele,Off
+B,Team A,Training,Training,Training,Training,Training,Training,Off,Off,Loc B,Tele,Loc B,Tele,Tele,Off,Off,Loc B,Tele,Loc B,Tele,Other,Off
+C,Team A,Off,Tele,Loc E,Loc E,Tele,Tele,Off,Off,Tele,Tele,Loc E,Loc E,Training,Off,Off,Tele,Tele,Loc E,Loc E,Vacation,Off
+D,Team A,Off,Tele,Loc B,Loc B,Tele,Tele,Off,Off,Tele,Loc B,Loc B,Tele,Tele,Off,Off,Tele,Loc B,Tele,Loc B,Tele,Off
+E,Team A,Training,Training,Training,Training,Training,Training,Off,Off,Vacation,Vacation,Vacation,Vacation,Tele,Off,Off,Tele,Loc B,Loc B,Loc B,Tele,Off
+F,Team A,Off,Tele,Tele,Loc E,Vacation,Tele,Off,Off,Tele,Tele,Loc E,Loc E,Tele,Off,Off,Tele,Tele,Loc E,Loc E,Tele,Off
+G,Team B,Off,Loc A,Loc B,Loc A,Tele,Tele,Off,Off,Loc A,Training,Training,Training,Loc A,Off,Off,Loc A,Loc A,Loc B,Loc B,Loc A,Off
+H,Team B,Off,Loc A,Tele,Tele,Tele,Loc A,Off,Off,Loc A,Loc A,Loc A,Loc A,Loc A,Off,Off,Vacation,Loc A,Loc A,Loc B,Vacation,Off
+I,Team B,Off,Loc A,Loc A,Loc A,Loc A,Loc A,Off,Off,Loc A,Loc A,Loc A,Loc A,Loc A,Off,Off,Loc A,Loc A,Loc A,Loc A,Loc A,Off
+J,Team B,Off,Tele,Tele,Tele,Training,Training,Off,Off,Tele,Tele,Loc D,Loc D,Tele,Off,Off,Tele,Loc D,Loc D,Tele,Tele,Off
+K,Team C,Tele,Tele,Tele,Off,Off,Off,Tele,Off,Tele,Tele,Tele,Tele,Tele,Off,Off,Loc D,Loc D,Loc D,Loc D,Loc D,Off
+L,Team C,Off,Tele,Loc C,Loc C,Vacation,Vacation,Off,Off,Tele,Loc C,Loc C,Tele,Tele,Off,Off,Tele,Loc C,Loc C,Tele,Tele,Off
+M,Team C,Off,Training,Training,Training,Training,Training,Off,Off,Loc B,Tele,Loc B,Tele,Tele,Off,Tele,Other,Tele,Off,Off,Off,Tele
+N,Team C,Off,Loc B,Loc B,Loc B,Tele,Tele,Off,Off,Loc B,Loc A,Loc B,Tele,Tele,Off,Off,Loc B,Tele,Loc B,Loc B,Loc B,Off
+O,Team C,Off,Tele,Tele,Tele,Tele,Tele,Off,Tele,Other,Other,Off,Off,Off,Tele,Off,Off,Off,Tele,Tele,Tele,Tele
+P,Team C,Tele,Tele,Tele,Off,Off,Off,Tele,Off,Tele,Tele,Loc D,Loc D,Tele,Off,Off,Tele,Tele,Other,Tele,Loc D,Off
+Q,Team C,Off,Off,Off,Off,Off,Off,Off,Off,Off,Off,Off,Off,Off,Off,Off,Loc D,Loc D,Loc D,Loc D,Loc D,Off
+R,Team C,Off,Loc B,Tele,Loc B,Tele,Tele,Off,Off,Tele,Tele,Other,Tele,Tele,Off,Off,Other,Tele,Loc B,Tele,Tele,Off
+S,Team C,Training,Training,Training,Training,Training,Tele,Off,Tele,Other,Loc D,Off,Off,Off,Tele,Off,Loc D,Loc D,Loc D,Loc D,Off,Off
+T,Team C,Off,Loc B,Tele,Loc B,Training,Training,Training,Training,Loc B,Training,Loc B,Tele,Off,Off,Off,Loc B,Tele,Loc B,Loc B,Loc B,Off
+U,Team C,Off,Loc B,Tele,Vacation,Vacation,Vacation,Off,Off,Vacation,Vacation,Vacation,Vacation,Vacation,Off,Tele,Tele,Tele,Tele,Off,Off,Off
+V,Team C,Off,Loc B,Tele,Loc B,Tele,Tele,Off,Off,Loc B,Tele,Loc B,Tele,Tele,Off,Off,Loc B,Tele,Loc B,Loc B,Loc B,Off
+W,Team C,Off,Loc B,Loc A,Loc B,Tele,Tele,Off,Off,Loc B,Loc A,Loc B,Tele,Vacation,Off,Off,Loc B,Loc A,Loc B,Loc B,Loc B,Off
+X,Team D,Off,Training,Training,Training,Training,Training,Off,Off,Loc B,Loc B,Loc B,Loc A,Tele,Off,Off,Other,Loc B,Loc A,Tele,Tele,Off
+Y,Team D,Off,Other,Loc B,Loc B,Other,Tele,Off,Off,Tele,Tele,Loc D,Loc D,Tele,Off,Off,Loc D,Loc D,Tele,Tele,Tele,Off
+Z,Team D,Off,Vacation,Vacation,Vacation,Vacation,Vacation,Off,Off,Other,Other,Other,Tele,Tele,Off,Off,Loc D,Loc D,Loc D,Tele,Vacation,Off
+AA,Team D,Off,Off,Off,Off,Off,Off,Off,Off,Loc D,Loc D,Loc D,Loc D,Loc D,Off,Off,Loc D,Loc D,Loc D,Loc D,Loc D,Off
+BB,Team D,Off,Tele,Tele,Loc D,Loc D,Tele,Off,Off,Loc D,Tele,Loc D,Tele,Tele,Off,Off,Loc D,Loc D,Loc D,Tele,Vacation,Off
+CC,Team D,Off,Vacation,Vacation,Vacation,Vacation,Vacation,Off,Off,Vacation,Vacation,Loc D,Loc D,Tele,Off,Off,Tele,Tele,Tele,Tele,Tele,Off
+DD,Team D,Off,Off,Off,Off,Off,Off,Off,Off,Off,Off,Off,Off,Off,Off,Off,Loc D,Loc D,Loc D,Loc D,Loc D,Off
+EE,Team D,Off,Tele,Loc A,Tele,Loc A,Tele,Off,Off,Tele,Training,Tele,Loc A,Tele,Off,Off,Tele,Loc A,Tele,Loc A,Tele,Off
+FF,Team D,Off,Tele,Tele,Loc D,Loc D,Tele,Off,Off,Loc D,Loc D,Loc D,Tele,Tele,Off,Off,Tele,Tele,Loc D,Loc D,Tele,Off
+GG,Team D,Off,Training,Training,Training,Training,Training,Off,Off,Tele,Loc B,Loc B,Tele,Tele,Off,Off,Tele,Loc B,Loc B,Loc B,Tele,Off
+HH,Team D,Off,Loc A,Loc A,Tele,Loc A,Tele,Off,Off,Loc A,Training,Training,Training,Tele,Off,Off,Vacation,Loc A,Tele,Loc A,Vacation,Off
