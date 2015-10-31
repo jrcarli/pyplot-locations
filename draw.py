@@ -18,22 +18,26 @@ def getColors():
               '#e6f598',
               '#99d594',
               '#3288bd',
-             ]
+             ] * 2  # double this list to accomodate 14 locs
     return colors
 
 def team2val(x):
-    if x=='B':
+    if x=='Team A':
         return 0
-    else:
+    elif x=='Team B':
         return 1
+    elif x=='Team C':
+        return 2
+    else:
+        return 3
 
 def loc2val(x):
     """
-    array(['Not Sched', 'Tel', 'Loc A', 'Other', 'Loc B', 'Loc C', 'Vaca'], dtype=object)
+    ['Off' 'Training' 'Tele' 'Loc A' 'Loc B' 'Other' 'Vacation' 'Loc E' 'Loc C' 'Loc D']
     """
-    if x=='Not Sched':
+    if x=='Off':
         return 0
-    elif x=='Tel':
+    elif x=='Tele':
         return 1
     elif x=='Loc A':
         return 2
@@ -41,10 +45,16 @@ def loc2val(x):
         return 3
     elif x=='Loc C':
         return 4
-    elif x=='Vaca':
+    elif x=='Loc D':
         return 5
-    else:
+    elif x=='Loc E':
         return 6
+    elif x=='Training':
+        return 7
+    elif x=='Vacation':
+        return 8
+    else:
+        return 9
 
 def genplot(df2,day,pdf=None):
     # Figure out how many dots may appear in one x bin
@@ -70,7 +80,7 @@ def genplot(df2,day,pdf=None):
     #s = [20*4**n for n in range(len(x))]
     #t = [20*4**x for x in s]
     t = [100*x for x in s]
-    plt.scatter(X,Y,s=t,alpha=0.5)
+    plt.scatter(X,Y,s=t)#,alpha=0.5)
 
     # Fill in the background
     # TODO: colors is conveniently sized to match data, should expand
@@ -85,10 +95,13 @@ def genplot(df2,day,pdf=None):
     # Make sure to use the full df not day-specific
     #loc_labels = df2['Location'].unique()
     loc_labels=['Off',
-                'Tel',
+                'Tele',
                 'Loc A',
                 'Loc B',
                 'Loc C',
+                'Loc D',
+                'Loc E',
+                'Training',
                 'Vacation',
                 'Other',
                ]
@@ -119,24 +132,29 @@ def genplot(df2,day,pdf=None):
         pdf.savefig()
         plt.close()
     else:
-        plt.show()
+        #plt.show()
+        imgname = 'imgs/%s.png'%(day)
+        plt.savefig(imgname)
+        plt.close()
 
 
-def main():
-    df = pd.read_csv('locations.csv')
-    df2 = pd.melt(df, id_vars=['Person','Team'], value_vars=['Day1','Day2','Day3','Day4','Day5','Day6','Day7'],var_name='Day',value_name='Location')
+def main(pdffile=None):
+    df = pd.read_csv('21d-locations.csv')
+    days = list(df.columns)[2:] # [2:] gives us list without Person and Team
+    df2 = pd.melt(df, id_vars=['Person','Team'], value_vars=days,var_name='Day',value_name='Location')
 
     df2['Site'] = df2['Location'].apply(loc2val)
     df2['TeamMap'] = df2['Team'].apply(team2val)
-    days = df2['Day'].unique()
 
     # Temporary for PDF
-    with PdfPages('locations.pdf') as pdf:
+    if pdffile:
+        with PdfPages(pdffile) as pdf:
+            for day in days:
+                genplot(df2,day,pdf)
+    else:
         for day in days:
-            genplot(df2,day,pdf)
-            #keep_going = raw_input('Next plot? [y|n] ')
-            #if keep_going != 'y':
-            #    break
+            genplot(df2,day)
 
 if __name__=='__main__':
+    #main('locations.pdf')
     main()
